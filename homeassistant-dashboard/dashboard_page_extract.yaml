@@ -1,0 +1,323 @@
+views:
+  - title: Luft-Wasser-Wärmepumpe
+    path: luft-wasser-warmepumpe
+    icon: mdi:heat-pump-outline
+    subview: true
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: picture-elements
+            elements:
+              - type: state-label
+                entity: sensor.thz_global_outside_temperature
+                style:
+                  top: 18.5%
+                  left: 38.2%
+                  rotate: 90deg
+              - type: state-label
+                entity: sensor.thz_global_input_ventilator_power
+                style:
+                  top: 14%
+                  left: 71%
+              - type: state-label
+                entity: sensor.heatpump_thz_input_ventilator_frequency
+                style:
+                  top: 17%
+                  left: 71%
+              - type: state-label
+                entity: sensor.thz_global_output_ventilator_power_temp
+                style:
+                  top: 38%
+                  left: 71%
+              - type: state-label
+                entity: sensor.heatpump_thz_output_ventilator_frequency
+                style:
+                  top: 41%
+                  left: 71%
+              - type: state-label
+                entity: sensor.thz_global_evaporator_temperature
+                style:
+                  top: 61.5%
+                  left: 67%
+              - type: state-label
+                entity: sensor.thz_global_main_ventilator_power
+                style:
+                  top: 59.5%
+                  left: 78%
+              - type: state-label
+                entity: sensor.thz_global_main_ventilator_speed
+                style:
+                  top: 62.5%
+                  left: 78%
+              - type: state-label
+                entity: sensor.thz_global_condenser_temperature
+                style:
+                  top: 92.0%
+                  left: 56%
+                  rotate: 90deg
+              - type: state-label
+                entity: binary_sensor.thz_global_heatpipe_valve
+                style:
+                  top: 87.5%
+                  left: 72.8%
+              - type: state-label
+                entity: binary_sensor.thz_global_compressor
+                style:
+                  top: 92.5%
+                  left: 83.5%
+              - type: state-label
+                entity: binary_sensor.thz_global_heating_circuit_pump
+                style:
+                  top: 90.5%
+                  left: 50.8%
+              - type: state-label
+                entity: sensor.thz_dhw_temperature
+                style:
+                  top: 32%
+                  left: 26%
+              - type: state-label
+                entity: sensor.thz_dhw_temperature_setpoint
+                style:
+                  top: 35%
+                  left: 26%
+              - type: state-label
+                entity: sensor.thz_global_flow_temperature
+                style:
+                  top: 79.6%
+                  left: 50%
+                  background-color: rgba(255, 100, 0,0.3)
+              - type: state-label
+                entity: sensor.thz_global_return_temperature
+                style:
+                  top: 91.6%
+                  left: 31%
+                  rotate: 90deg
+                  background-color: rgba(0, 100, 255,0.3)
+            image: /local/tecalor_inside2.png?v=1
+          - type: markdown
+            content: |
+              * 1 Außenluft  (Outside Temperature)
+              * 2 Abluft Räume (n. V.?)
+              * 3 Zuluft Räume (n. V.?)
+              * 4 Fortluft (n. V.?)
+              * 5 Zuluftventilator (Input Ventilator?)
+              * 6 Kreuzgegenstrom-Wärmeübertrager (n. V.?)
+              * 7 Fortluftventilator (Output Ventilator?)
+              * 8 Luftvorwärmer 
+              * 9 Verdampfer (evaporator)
+              * 10 Fortluftventilator (Main Ventilator)
+              * 11 Expansionsventil 
+              * 12 Verflüssiger (Condensor)
+              * 13 Heat-Pipe-Magnetventil (HeatPipeValve)
+              * 14 Verdichter (Compressor)
+              * 15 Solar Rücklauf (n. V.?)
+              * 16 Solar Vorlauf (n. V.?)
+              * 17 Solar-Wärmeübertrager (n. V.?)
+              * 18 Elektrische Not-/Zusatzheizung (optional)
+              * 19 Heizungsumwälzpumpe (heating_circuit_pump)
+              * 20 Multifunktionsgruppe
+              * 21 Trinkwarmwasserspeicher (optional)
+              * 22 Rückschlagklappe
+              * 23 Zirkulation
+              * 24 Kaltwasser Zulauf
+              * 25 Warmwasser Auslauf
+              * 26 Heizung Rücklauf
+              * 27 Heizung Vorlauf
+      - type: vertical-stack
+        cards:
+          - chart_type: line
+            period: hour
+            type: statistics-graph
+            entities:
+              - entity: sensor.thz_global_flow_temperature
+              - entity: sensor.thz_global_return_temperature
+              - entity: sensor.thz_global_dhw_temperature
+              - entity: sensor.thz_hc1_temperature
+              - entity: sensor.thz_dhw_temperature_setpoint
+              - entity: sensor.thz_hc1_temperature_setpoint
+            stat_types:
+              - mean
+            hide_legend: true
+            logarithmic_scale: false
+            title: Vorlauf, WW und Heizung
+            days_to_show: 1
+          - type: history-graph
+            entities:
+              - entity: binary_sensor.thz_global_diverter_valve
+              - entity: binary_sensor.thz_global_dhw_pump
+              - entity: binary_sensor.thz_global_heating_circuit_pump
+              - entity: binary_sensor.thz_global_mixer_pump
+              - entity: binary_sensor.thz_global_solar_pump
+            logarithmic_scale: false
+            hours_to_show: 24
+          - type: entities
+            entities:
+              - entity: sensor.thz_dhw_day_energy
+              - entity: sensor.thz_dhw_total_energy
+              - entity: sensor.thz_hc_day_energy
+              - entity: sensor.thz_hc_total_energy
+              - entity: sensor.lwwp_heizung_energie_total
+              - entity: sensor.lwwp_warmwasser_energie_total
+      - type: vertical-stack
+        cards:
+          - chart_type: line
+            period: hour
+            type: statistics-graph
+            entities:
+              - sensor.thz_global_outside_temperature
+              - sensor.thz_global_evaporator_temperature
+            stat_types:
+              - mean
+            hide_legend: true
+            logarithmic_scale: false
+            title: Außen, Verdampfer und Motor
+            days_to_show: 1
+          - type: history-graph
+            entities:
+              - entity: sensor.thz_global_main_ventilator_power
+            logarithmic_scale: false
+            hours_to_show: 24
+      - type: vertical-stack
+        cards:
+          - chart_type: line
+            period: hour
+            type: statistics-graph
+            entities:
+              - entity: sensor.thz_global_outside_temperature
+              - entity: sensor.thz_global_flow_temperature
+              - entity: sensor.thz_global_return_temperature
+              - entity: sensor.thz_global_condenser_temperature
+              - entity: sensor.thz_global_dhw_temperature
+              - entity: sensor.thz_global_evaporator_temperature
+              - entity: sensor.thz_global_hotgas_temperature
+              - entity: sensor.thz_global_high_pressure
+              - entity: sensor.thz_global_low_pressure
+              - entity: sensor.thz_global_flowrate
+            stat_types:
+              - mean
+            hide_legend: true
+            logarithmic_scale: false
+            title: Allgemeine Verlaufsdaten
+            days_to_show: 1
+          - chart_type: line
+            period: hour
+            type: statistics-graph
+            entities:
+              - entity: sensor.thz_global_outside_temperature
+              - entity: sensor.thz_global_flow_temperature
+              - entity: sensor.thz_global_return_temperature
+              - entity: sensor.thz_global_dhw_temperature
+            stat_types:
+              - mean
+            hide_legend: true
+            logarithmic_scale: false
+            title: 'Temperaturen #1'
+            days_to_show: 1
+          - chart_type: line
+            period: hour
+            type: statistics-graph
+            entities:
+              - sensor.thz_hc1_temperature
+              - sensor.thz_hc1_temperature_setpoint
+              - sensor.thz_dhw_temperature
+              - sensor.thz_dhw_temperature_setpoint
+            stat_types:
+              - mean
+            hide_legend: true
+            logarithmic_scale: false
+            title: 'Temperaturen #2'
+            days_to_show: 1
+          - type: history-graph
+            entities:
+              - entity: binary_sensor.thz_global_mixer_opened
+              - entity: binary_sensor.thz_global_mixer_closed
+              - entity: binary_sensor.thz_global_heatpipe_valve
+              - entity: binary_sensor.thz_global_diverter_valve
+              - entity: binary_sensor.thz_global_dhw_pump
+              - entity: binary_sensor.thz_global_heating_circuit_pump
+              - entity: binary_sensor.thz_global_mixer_pump
+              - entity: binary_sensor.thz_global_solar_pump
+              - entity: binary_sensor.thz_global_oil_sump_heater
+              - entity: binary_sensor.thz_global_bit_25_1
+              - entity: binary_sensor.thz_global_bit_25_2
+              - entity: binary_sensor.thz_global_compressor
+              - entity: binary_sensor.thz_global_bit_25_4
+              - entity: binary_sensor.thz_global_bit_25_5
+              - entity: binary_sensor.thz_global_bit_25_6
+              - entity: binary_sensor.thz_global_bit_25_7
+              - entity: binary_sensor.thz_global_hps_inverted
+              - entity: binary_sensor.thz_global_lps_inverted
+              - entity: binary_sensor.thz_global_evaporator_ice_monitor
+              - entity: binary_sensor.thz_global_signal_anode
+              - entity: binary_sensor.thz_global_evu_release
+              - entity: binary_sensor.thz_global_oven_fireplace
+              - entity: binary_sensor.thz_global_stb
+              - entity: binary_sensor.thz_global_bit_26_7
+            logarithmic_scale: false
+            hours_to_show: 24
+            title: Binäre Verlaufsdaten
+      - type: vertical-stack
+        cards:
+          - type: entities
+            entities:
+              - entity: binary_sensor.thz_global_mixer_opened
+              - entity: binary_sensor.thz_global_mixer_closed
+              - entity: binary_sensor.thz_global_heatpipe_valve
+              - entity: binary_sensor.thz_global_diverter_valve
+              - entity: binary_sensor.thz_global_dhw_pump
+              - entity: binary_sensor.thz_global_heating_circuit_pump
+              - entity: binary_sensor.thz_global_mixer_pump
+              - entity: binary_sensor.thz_global_solar_pump
+              - entity: binary_sensor.thz_global_oil_sump_heater
+              - entity: binary_sensor.thz_global_bit_25_1
+              - entity: binary_sensor.thz_global_bit_25_2
+              - entity: binary_sensor.thz_global_compressor
+              - entity: binary_sensor.thz_global_bit_25_4
+              - entity: binary_sensor.thz_global_bit_25_5
+              - entity: binary_sensor.thz_global_bit_25_6
+              - entity: binary_sensor.thz_global_bit_25_7
+              - entity: binary_sensor.thz_global_hps_inverted
+              - entity: binary_sensor.thz_global_lps_inverted
+              - entity: binary_sensor.thz_global_evaporator_ice_monitor
+              - entity: binary_sensor.thz_global_signal_anode
+              - entity: binary_sensor.thz_global_evu_release
+              - entity: binary_sensor.thz_global_oven_fireplace
+              - entity: binary_sensor.thz_global_stb
+              - entity: binary_sensor.thz_global_bit_26_7
+      - type: vertical-stack
+        cards:
+          - type: entities
+            entities:
+              - entity: sensor.thz_global_outside_temperature
+              - entity: sensor.thz_global_flow_temperature
+              - entity: sensor.thz_global_return_temperature
+              - entity: sensor.thz_global_condenser_temperature
+              - entity: sensor.thz_global_dhw_temperature
+              - entity: sensor.thz_global_evaporator_temperature
+              - entity: sensor.thz_global_hotgas_temperature
+              - entity: sensor.thz_global_high_pressure
+              - entity: sensor.thz_global_low_pressure
+              - entity: sensor.thz_global_flowrate
+          - type: entities
+            entities:
+              - entity: sensor.thz_dhw_temperature
+              - entity: sensor.thz_dhw_temperature_setpoint
+              - entity: sensor.thz_hc1_temperature_setpoint
+              - entity: sensor.thz_hc1_temperature
+              - entity: sensor.thz_hc1_flow_temperature
+              - entity: sensor.thz_hc1_return_temperature
+              - entity: sensor.thz_hc1_room_temperature_setpoint
+              - entity: sensor.thz_hc1_room_temperature_rc
+          - type: entities
+            entities:
+              - entity: sensor.thz_global_main_ventilator_power
+              - entity: sensor.thz_global_main_ventilator_speed
+          - type: entities
+            entities:
+              - entity: sensor.thz_dhw_day_energy
+              - entity: sensor.thz_dhw_total_energy
+              - entity: sensor.thz_hc_day_energy
+              - entity: sensor.thz_hc_total_energy
+              - entity: sensor.lwwp_heizung_energie_total
+              - entity: sensor.lwwp_warmwasser_energie_total
