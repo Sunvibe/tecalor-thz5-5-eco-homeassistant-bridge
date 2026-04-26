@@ -5,6 +5,8 @@ Integration of the Tecalor THZ 5.5 Eco heat pump with Home Assistant using MQTT,
 
 Integration of the Tecalor THZ 5.5 Eco heat pump with Home Assistant using MQTT, AppDaemon, and ser2net on a Raspberry Pi.
 
+![Home Assistant dashboard example](homeassistant_dashboard_example.png)
+
 ---
 
 ## 🧩 Architecture Overview
